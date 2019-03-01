@@ -1,22 +1,16 @@
 package PACKAGE1;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.Random;
 
-public class Emploee {
+public class Emploee  {
 
-   // String name;
-   // String namefile;
-  //  String surname;
-  //  String secondname;
-   // char gender;
-  // String[] gender = new String[];
-   //String[] surname = new String[k];
-   // String[] name = new String[k];
-    //String[] general = new String[k];
 
     public static String[] getList(int k, String namefile)  {
         try {File file = new File(namefile);
@@ -38,22 +32,11 @@ public class Emploee {
 
     }
 
- /*  public static Boolean[] getListGender(int k)  {
-        Random randomGenerator = new Random(); //генерирум массив полов - gender
-        Boolean[] gender = new Boolean[k];
-        for (int idx = 0; idx < k; ++idx){
-
-            gender[idx]= randomGenerator.nextBoolean();
-        }
-
-return gender;
-    }*/
 
    public static String[] getListGender(int k)  {
          Random random = new Random();
        String[] out = new String[k];
        String[] values ={"м","ж"};
-      //  String out = "";
 
         for (int i=0;i<k;i++) {
             int idx=random.nextInt(values.length);
@@ -65,12 +48,37 @@ return gender;
     }
 
 
+    public static String[] getListDataBith (int k,LocalDate bithdate)  {
+        String[] arrbith = new String[k];
+
+        for (int i=0;i<k;i++) {
+            arrbith[i]=bithdate.toString();
+                    }
+
+        return  arrbith;
+
+    }
+
+    public static int[] getListAge (int k,LocalDate bithdate)  {
+
+        LocalDate nowdate = LocalDate.now();
+        Emploee Age = new Emploee();
+
+        int[] arrage = new int[k];
+
+        for (int i=0;i<k;i++) {
+            arrage[i]=Age.calculateAge(bithdate,nowdate );
+        }
+
+        return  arrage;
+
+    }
 
 
 
    public static String[] getListGeneral(int k,String namegirl[],String nameboy[],String gender[]) {
        int m = 0, s = 0;
-//номер позиции в массиве
+//номер позиции в массиве c женскими и мужскими именами
        String[] general = new String[k];
        for (int n = 0; n < k; n++) { //формируем общий список имен мужских и женских
            if (gender[n].equals("м"))
@@ -87,6 +95,15 @@ return gender;
        }
        return general;
    }
+
+
+    public static int calculateAge(LocalDate birthDate, LocalDate currentDate) {
+        if ((birthDate != null) && (currentDate != null)) {
+            return Period.between(birthDate, currentDate).getYears();
+        } else {
+            return 0;
+        }
+    }
 
 
     }

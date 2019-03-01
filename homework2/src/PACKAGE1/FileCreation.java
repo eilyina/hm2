@@ -1,87 +1,68 @@
 package PACKAGE1;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Random;
-import java.util.Scanner;
 
-public class CreateNEW {
+public class FileCreation {
 
     public static void main(String[] args) {
 
+String pathfile = "C:"+File.separator+"Тест"+File.separator+"Тест.xlsx";
+        int listsize = 1+(int)( Math.random() * 30 );
+        Emploee Gender= new Emploee();
+       String[] gender  =  Gender.getListGender(listsize);
 
-        int k = 1+(int)( Math.random() * 30 );
-        Emploee Emp = new Emploee();
-       String[] gender  =  Emp.getListGender(k);
-        //boolean[] gender = new boolean [k];
-
-
-        /*Random randomGenerator = new Random(); //генерирум массив полов - gender
-        for (int idx = 0; idx < k; ++idx){
-
-            gender[idx]= randomGenerator.nextBoolean();
-        }*/
         System.out.println(Arrays.toString(gender));
-       System.out.println(k);
+       System.out.println(listsize);
 
-       // int i=0;
-      //  int j = 0;
-       // String[] surname = new String[k];
-        ///String[] name = new String[k];
-       /// String[] general = new String[k];
 
 Emploee EmploerMen = new Emploee();
-        String[] namemen =  EmploerMen.getList(k,"Мужские имена");
+        String[] namemen =  EmploerMen.getList(listsize,"Мужские имена");
         Emploee EmploerWomen = new Emploee();
-        String[] namewomen =  EmploerWomen.getList(k,"Женские имена");
+        String[] namewomen =  EmploerWomen.getList(listsize,"Женские имена");
 
 
         Emploee EmploerMen2 = new Emploee();
-        String[] surnamemen =  EmploerMen2.getList(k,"Мужские фамилии");
+        String[] surnamemen =  EmploerMen2.getList(listsize,"Мужские фамилии");
         Emploee Emploerwomen2 = new Emploee();
-        String[] surnamewomen =  Emploerwomen2.getList(k,"Женские фамилии");
+        String[] surnamewomen =  Emploerwomen2.getList(listsize,"Женские фамилии");
 
         Emploee EmploerMen3 = new Emploee();
-        String[] middlenamemen =  EmploerMen3.getList(k,"Мужские Отчества");
+        String[] middlenamemen =  EmploerMen3.getList(listsize,"Мужские Отчества");
         Emploee Emploerwomen3 = new Emploee();
-        String[] middlenamewomen =  Emploerwomen3.getList(k,"Женские Отчества");
+        String[] middlenamewomen =  Emploerwomen3.getList(listsize,"Женские Отчества");
 
         Emploee Country = new Emploee();
-        String[] country =  Country.getList(k,"Страны");
+        String[] country =  Country.getList(listsize,"Страны");
 
         Emploee Region = new Emploee();
-        String[] region =  Region.getList(k,"Область");
+        String[] region =  Region.getList(listsize,"Область");
 
         Emploee Street = new Emploee();
-        String[] street =  Street.getList(k,"Улицы");
+        String[] street =  Street.getList(listsize,"Улицы");
 
         Emploee EmploerGeneralName = new Emploee();
-        String[] generalname =  EmploerGeneralName.getListGeneral(k,namemen,namewomen,gender);
+        String[] generalname =  EmploerGeneralName.getListGeneral(listsize,namemen,namewomen,gender);
         Emploee EmploerGeneralSurName = new Emploee();
-        String[] generalsurname =  EmploerGeneralSurName.getListGeneral(k,surnamemen,surnamewomen,gender);
+        String[] generalsurname =  EmploerGeneralSurName.getListGeneral(listsize,surnamemen,surnamewomen,gender);
         Emploee EmploerGeneralMiddle = new Emploee();
-        String[] generalmiddlename =  EmploerGeneralMiddle.getListGeneral(k,middlenamemen,middlenamewomen,gender);
+        String[] generalmiddlename =  EmploerGeneralMiddle.getListGeneral(listsize,middlenamemen,middlenamewomen,gender);
 
 
-      //  Emploee EmploerOUT= new Emploee();
-     //   String[] outname =  EmploerOUT.getListGender(k);
-        //System.out.println(outname);
+
+        RandomDataMy IndexAddress = new RandomDataMy();
+        int[] listIndexAddress = IndexAddress.getIndexList(listsize);
 
 
-        Randomdata IndexAddress = new Randomdata();
-        int[] listIndexAddress = IndexAddress.getIndexList(k);
-
-
-        Workbook book = new HSSFWorkbook();
+        XSSFWorkbook book = new XSSFWorkbook();
         Sheet sheet = book.createSheet("Cписок");
+
 
         Row row = sheet.createRow(0);
         Cell name14 = row.createCell(0);
@@ -101,6 +82,7 @@ Emploee EmploerMen = new Emploee();
 
         Cell name6 = row.createCell(5);
         name6.setCellValue("Дата рождения");
+
 
         Cell name7 = row.createCell(6);
         name7.setCellValue("ИНН");
@@ -123,11 +105,21 @@ Emploee EmploerMen = new Emploee();
         Cell name13 = row.createCell(12);
         name13.setCellValue("Квартира");
 
+
+
         int count1 =0;
-        for (int n = 1; n <= k; n++)
-        { Row row15 = sheet.createRow(n);
+        for (int n = 1; n <= listsize; n++)
+        {
             Row row16 = sheet.createRow(n);
-            Cell name15 =  row15.createCell(0);
+
+            LocalDate randomdate = RandomData.randomBirthday();
+
+            Emploee DateOfBirth = new Emploee();
+            String[] datebirth= DateOfBirth.getListDataBith(listsize,randomdate);
+
+            Emploee Age = new Emploee();
+            int[] age= Age.getListAge(listsize,randomdate);
+            Cell name15 =  row16.createCell(0);
             name15.setCellValue(generalname[count1]);
 
             Cell name16 =  row16.createCell(1);
@@ -144,17 +136,27 @@ Emploee EmploerMen = new Emploee();
             name21.setCellValue(listIndexAddress[count1]);
             Cell name22 =  row16.createCell(4);
             name22.setCellValue(gender[count1]);
+
+
+            Cell namedata1 = row16.createCell(5);
+            namedata1.setCellValue(datebirth[count1]);
+
+            Cell nameage1 = row16.createCell(3);
+            nameage1.setCellValue(age[count1]);
+
         count1 ++;
         }
 
+
         try {
-            FileOutputStream fileOut = new FileOutputStream("C:\\Users\\Ilyin\\Downloads\\test.xls");
-            book.write(fileOut);
-            fileOut.close();
-            System.out.println("Файл создан");
+
+           FileOutputStream fileOut = new FileOutputStream(new File(pathfile));
+           book.write(fileOut);
+           fileOut.close();
+            System.out.println("Файл создан.Путь "+pathfile);
         }
         catch (Exception e)
-        {System.out.println("Ошибка.Файл не создан.");}
+        {System.out.println("Ошибка при создании файла.Файл не создан.");}
 
 
         }
